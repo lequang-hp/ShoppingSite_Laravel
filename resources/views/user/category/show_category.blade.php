@@ -5,6 +5,7 @@
 	<h2 class="title text-center">List products</h2>
 		
 						@foreach($product_by_category as $key => $product)
+						<a href="{{URL::to('/product-detail/'.$product->product_id)}}">
 						<div class="col-sm-4">
 							<div class="product-image-wrapper">
 								<div class="single-products">
@@ -24,6 +25,7 @@
 								</div>
 							</div>
 						</div>
+						</a>
 						@endforeach
 					</div><!--features_items-->
 				

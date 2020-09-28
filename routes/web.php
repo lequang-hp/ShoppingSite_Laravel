@@ -18,12 +18,25 @@ Route::get('/','HomeController@index' );
 Route::get('/trang-chu','HomeController@index');
 Route::get('/category/{category_id}','CategoryProductController@show_category_home');
 Route::get('/brand/{brand_id}','BrandProductController@show_brand_home');
+Route::get('/product-detail/{product_id}','ProductController@details_product');
+
+// cart
+Route::post('/save-cart','CartController@save_cart');
+Route::get('/show-cart','CartController@show_cart');
+Route::get('/delete-cart/{rowId}','CartController@delete_cart');
+Route::post('/update-cart','CartController@update_cart');
 
 // Route for admin role
 Route::get('/admin','AdminController@index');
 Route::get('/dashboard','AdminController@show_dashboard');
 Route::post('/admin-dashboard','AdminController@log_in');
 Route::get('/logout','AdminController@log_out');
+
+// Check out
+Route::get('/login-checkout','CheckoutController@login_checkout');
+Route::post('/add-customer','CheckoutController@add_customer');
+Route::get('/checkout','CheckoutController@checkout');
+Route::post('/save-checkout-customer','CheckoutController@save_checkout_customer');
 
 //Category
 Route::get('/add-category-product','CategoryProductController@add_category_product');

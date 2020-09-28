@@ -114,5 +114,26 @@ class ProductController extends Controller
         Session::put('message','Delete product successfully');
         return Redirect::to('/all-product');
     }
+    
+    // User role function
+    public function details_product($product_id){
+        $category = DB::table('tbl_category_product')->where('category_status','1')->orderby('category_id','desc')->get();
+        $brand = DB::table('tbl_brand')->where('brand_status','1')->orderby('brand_id','desc')->get();
+        $details_product = DB::table('tbl_product')
+        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
+        ->where('product_id',$product_id)->get();
+        
+        foreach ($details_product as $key => $product){
+            $category_id = $product->category_id;
+        }
+        
+        $related_product = DB::table('tbl_product')
+        ->join('tbl_category_product','tbl_category_product.category_id','=','tbl_product.category_id')
+        ->join('tbl_brand','tbl_brand.brand_id','=','tbl_product.brand_id')
+        ->where('tbl_product.category_id',$category_id)->whereNotIn('tbl_product.product_id',[$product_id])->get();
+        return view('user.product.show_details')->with('category',$category)->with('brand',$brand)->with('details_product',$details_product)
+        ->with('related_product',$related_product);
+    }
 }
 ?>
